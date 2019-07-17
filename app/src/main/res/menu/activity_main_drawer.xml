@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_prep_home"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Дом" />
+        <item
+            android:id="@+id/nav_prep1"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 1" />
+        <item
+            android:id="@+id/nav_prep2"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 2" />
+        <item
+            android:id="@+id/nav_prep3"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 3" />
+        <item
+            android:id="@+id/nav_prep4"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 4" />
+        <item
+            android:id="@+id/nav_prep5"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 5" />
+        <item
+            android:id="@+id/nav_prep6"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 6" />
+        <item
+            android:id="@+id/nav_prep7"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 7" />
+        <item
+            android:id="@+id/nav_prep8"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 8" />
+        <item
+            android:id="@+id/nav_prep9"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 9" />
+        <item
+            android:id="@+id/nav_prep10"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 10" />
+        <item
+            android:id="@+id/nav_prep11"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 11" />
+        <item
+            android:id="@+id/nav_prep12"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 12" />
+        <item
+            android:id="@+id/nav_prep13"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Позиция 13" />
+    </group>
+
+</menu>
