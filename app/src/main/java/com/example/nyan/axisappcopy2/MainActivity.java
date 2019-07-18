@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Switch;
 import android.widget.VideoView;
 
 import java.io.IOException;
@@ -36,9 +37,11 @@ public class MainActivity extends AppCompatActivity
     EditText mPassword;
     VideoView mVideoView;
     Button mConnectBtn;
+    Switch mIsPTZ;
     View mView;
     String userLogin;
     String userPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity
         mVideoView = findViewById(R.id.videoView);
         mConnectBtn = findViewById(R.id.connectBtn);
         mCameraIP = findViewById(R.id.cameraIP);
+        mIsPTZ = findViewById(R.id.isPTZ);
 
         mConnectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,7 +82,7 @@ public class MainActivity extends AppCompatActivity
                                 String videoSource = "rtsp://46.0.199.87/axis-media/media.amp";
                                 mVideoView.setVideoURI(Uri.parse(videoSource));
                                 mVideoView.start();
-                                //startStream();
+                                startStream();
                             }
                         });
 
@@ -212,6 +216,7 @@ public class MainActivity extends AppCompatActivity
 
     public void startStream() {
         String IP = mCameraIP.getText().toString();
+        String videoSource;
         // если камера имеет логин/пароль
         // конструируем адрес видеопотока
         if ((!userLogin.equals("")) && (!userPassword.equals(""))) {
@@ -219,12 +224,13 @@ public class MainActivity extends AppCompatActivity
             userPassword += "@";
         }
 
-        String videoSource = "rtsp://" + userLogin + userPassword + IP + "/axis-media/media.amp";
-        //String videoSource = "rtsp://" + userLogin + userPassword + IP + "/mpeg4/media.amp";
-        //String videoSource = "rtsp://root:root@192.168.0.106/mpeg4/media.amp";
+        if(mIsPTZ.isChecked()) {
+            videoSource = "rtsp://" + userLogin + userPassword + IP + "/mpeg4/media.amp";
+        } else {
+            videoSource = "rtsp://" + userLogin + userPassword + IP + "/axis-media/media.amp";
+        }
+
         mVideoView.setVideoURI(Uri.parse(videoSource));
-        // mVideoView.setMediaController(new MediaController(getApplicationContext()));
-        //mVideoView.requestFocus(0);
         mVideoView.start();
     }
 

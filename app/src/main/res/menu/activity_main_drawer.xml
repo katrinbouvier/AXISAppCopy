@@ -7,59 +7,59 @@
         <item
             android:id="@+id/nav_prep_home"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Дом" />
+            android:title="Дом (входная дверь)" />
         <item
             android:id="@+id/nav_prep1"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 1" />
+            android:title="Область под камерой" />
         <item
             android:id="@+id/nav_prep2"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 2" />
+            android:title="Угол 1" />
         <item
             android:id="@+id/nav_prep3"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 3" />
+            android:title="Угол 2" />
         <item
             android:id="@+id/nav_prep4"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 4" />
+            android:title="Угол 3" />
         <item
             android:id="@+id/nav_prep5"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 5" />
+            android:title="Угол 4" />
         <item
             android:id="@+id/nav_prep6"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 6" />
+            android:title="Центр помещения" />
         <item
             android:id="@+id/nav_prep7"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 7" />
+            android:title="Стена 1" />
         <item
             android:id="@+id/nav_prep8"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 8" />
+            android:title="Окно 1" />
         <item
             android:id="@+id/nav_prep9"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 9" />
+            android:title="Стена 2" />
         <item
             android:id="@+id/nav_prep10"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 10" />
+            android:title="Окно 2" />
         <item
             android:id="@+id/nav_prep11"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 11" />
+            android:title="Окно 3" />
         <item
             android:id="@+id/nav_prep12"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 12" />
+            android:title="Стена 3" />
         <item
             android:id="@+id/nav_prep13"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Позиция 13" />
+            android:title="Стена 4" />
     </group>
 
 </menu>
