@@ -2,10 +2,9 @@ package com.example.nyan.axisappcopy2;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.util.Base64;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,12 +15,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -32,16 +37,19 @@ import okhttp3.Response;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    EditText mCameraIP;
-    EditText mLogin;
-    EditText mPassword;
-    VideoView mVideoView;
-    Button mConnectBtn;
-    Switch mIsPTZ;
-    View mView;
-    String userLogin;
-    String userPassword;
+    private AutoCompleteTextView mCameraIP;
+    private EditText mLogin;
+    private EditText mPassword;
+    private VideoView mVideoView;
+    private Button mConnectBtn;
+    private Switch mIsPTZ;
+    private View mView;
+    private String userLogin;
+    private String userPassword;
 
+    public static final String APP_PREFERENCES = "AUTOSET";
+    private List<String> mList;
+    private SharedPreferences sPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +70,26 @@ public class MainActivity extends AppCompatActivity
         mCameraIP = findViewById(R.id.cameraIP);
         mIsPTZ = findViewById(R.id.isPTZ);
 
+        sPref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE);
+        mCameraIP = findViewById(R.id.cameraIP);
+        mList = loadText();
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_dropdown_item_1line,
+                mList);
+
+        mCameraIP.setAdapter(adapter);
+
         mConnectBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if(mCameraIP.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(),
+                            "Поле IP не может быть пустым", Toast.LENGTH_SHORT).show();
+                } else {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 mView = MainActivity.this.getLayoutInflater().inflate(R.layout.dialog_login, null);
                 builder.setTitle("Авторизация")
@@ -77,8 +102,6 @@ public class MainActivity extends AppCompatActivity
                                 userLogin = mLogin.getText().toString();
                                 userPassword = mPassword.getText().toString();
 
-//                                dialog.cancel();
-
                                 String videoSource = "rtsp://46.0.199.87/axis-media/media.amp";
                                 mVideoView.setVideoURI(Uri.parse(videoSource));
                                 mVideoView.start();
@@ -89,9 +112,27 @@ public class MainActivity extends AppCompatActivity
                 builder.setView(mView);
                 AlertDialog dialog = builder.create();
                 dialog.show();
+                        }
+
+                String newAdd = mCameraIP.getText().toString();
+                if(!mList.contains(newAdd)) {
+                    mList.add(newAdd);
+                    int num = mList.size()+1;
+                    saveText("ip"+num, newAdd);
+                }
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(
+                        getApplicationContext(),
+                        android.R.layout.simple_dropdown_item_1line,
+                        mList);
+
+                mCameraIP.setAdapter(adapter);
             }
         });
+
+
     }
+
 
     @Override
     public void onBackPressed() {
@@ -112,9 +153,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -183,7 +221,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
     public void preparedAction(String IP, String username, String password, String action) {
         OkHttpClient client = new OkHttpClient();
         String credentials = username+":"+password;
@@ -213,9 +250,12 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-
     public void startStream() {
         String IP = mCameraIP.getText().toString();
+        if(IP.equals("")) {
+            Toast.makeText(getApplicationContext(),
+                    "Это поле не может быть пустым", Toast.LENGTH_SHORT).show();
+        }
         String videoSource;
         // если камера имеет логин/пароль
         // конструируем адрес видеопотока
@@ -234,4 +274,14 @@ public class MainActivity extends AppCompatActivity
         mVideoView.start();
     }
 
+    public void saveText(String key, String value) {
+        SharedPreferences.Editor ed = sPref.edit();
+        ed.putString(key, value);
+        ed.apply();
+    }
+
+    public List<String> loadText() {
+        Map<String, ?> map = sPref.getAll();
+        return new ArrayList(map.values());
+    }
 }
